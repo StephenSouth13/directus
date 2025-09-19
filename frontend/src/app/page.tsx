@@ -1,15 +1,19 @@
 import { directus } from '@/lib/directus';
+import { readItems } from '@directus/sdk';
 
 export default async function Home() {
-  const posts = await directus.items('post').readByQuery({ fields: ['id', 'title', 'content'] });
+  // ✅ dùng readItems thay cho directus.items()
+  const posts = await directus.request(
+    readItems('post', { fields: ['id', 'title', 'content'] })
+  );
 
   return (
     <main className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Danh sách bài viết</h1>
+      <h1 className="text-xl font-bold mb-4">Posts</h1>
       <ul>
-        {posts.data?.map((p: any) => (
-          <li key={p.id} className="mb-3">
-            <h2 className="text-xl">{p.title}</h2>
+        {posts?.map((p: { id: string; title: string | null; content: string | null }) => (
+          <li key={p.id}>
+            <h2 className="font-semibold">{p.title}</h2>
             <p>{p.content}</p>
           </li>
         ))}
