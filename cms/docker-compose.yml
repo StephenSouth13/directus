@@ -1,9 +1,6 @@
-version: "3.9"
-
 services:
   db:
     image: postgres:15
-    restart: unless-stopped
     environment:
       POSTGRES_USER: directus
       POSTGRES_PASSWORD: directus
@@ -18,12 +15,16 @@ services:
     environment:
       KEY: "superlongkey32chars"
       SECRET: "anotherlongsecret32chars"
+
       DB_CLIENT: "pg"
       DB_HOST: db
       DB_PORT: 5432
       DB_DATABASE: directus
       DB_USER: directus
       DB_PASSWORD: directus
+
+      ADMIN_EMAIL: admin@example.com       # 👈 tạo admin mới
+      ADMIN_PASSWORD: StrongAdmin123!      # 👈 mật khẩu mới
     depends_on:
       - db
     volumes:
