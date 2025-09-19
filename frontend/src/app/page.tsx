@@ -2,7 +2,6 @@ import { directus } from '@/lib/directus';
 import { readItems } from '@directus/sdk';
 
 export default async function Home() {
-  // ✅ dùng readItems thay cho directus.items()
   const posts = await directus.request(
     readItems('post', { fields: ['id', 'title', 'content'] })
   );
