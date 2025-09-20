@@ -4,11 +4,11 @@ import type { Post } from '@/lib/directus';
 
 export default async function Home() {
   // ✅ Truyền đúng 3 generic vào readItems
-  const posts = await directus.request(
-    readItems<'post', { fields: (keyof Post)[] }, Post[]>('post', {
-      fields: ['id', 'title', 'content'],
-    })
-  );
+  const posts = (await directus.request(
+  readItems('post', { fields: ['id', 'title', 'content'] })
+)) as Post[];
+
+
 
   return (
     <main className="p-6">
