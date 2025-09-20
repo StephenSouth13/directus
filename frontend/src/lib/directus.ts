@@ -10,4 +10,7 @@ export interface Post {
 export interface Schema {
   post: Post[];
 }
-const URL = "http://localhost:8056"; // Địa chỉ URL của Directus CMS
+const URL = "http://localhost:8056";   // Địa chỉ URL của Directus CMS
+
+// Client Directus
+export const directus = createDirectus<Schema>(URL).with(rest());
