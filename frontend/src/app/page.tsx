@@ -1,16 +1,20 @@
 import { directus } from '@/lib/directus';
 import { readItems } from '@directus/sdk';
+import type { Post } from '@/lib/directus';
 
 export default async function Home() {
+  // ✅ Truyền đúng 3 generic vào readItems
   const posts = await directus.request(
-    readItems('post', { fields: ['id', 'title', 'content'] })
+    readItems<'post', { fields: (keyof Post)[] }, Post[]>('post', {
+      fields: ['id', 'title', 'content'],
+    })
   );
 
   return (
     <main className="p-6">
       <h1 className="text-xl font-bold mb-4">Posts</h1>
       <ul>
-        {posts?.map((p: { id: string; title: string | null; content: string | null }) => (
+        {posts?.map((p) => (
           <li key={p.id}>
             <h2 className="font-semibold">{p.title}</h2>
             <p>{p.content}</p>

@@ -5,5 +5,5 @@ export interface Post {
 }
 
 export interface Schema {
-  post: Post;
+  post: Post[];
 }
